@@ -1,3 +1,5 @@
+// Test changes with github account 
+
 function BrandMark() {
   return (
     <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#173f35] text-white">
