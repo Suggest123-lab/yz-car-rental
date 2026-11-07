@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Car images are uploaded by the admin at runtime.
+/public/uploads/cars/*
+!/public/uploads/cars/.gitkeep

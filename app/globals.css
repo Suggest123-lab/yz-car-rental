@@ -48,6 +48,12 @@ body {
   animation: recommendation-cycle 16s ease-in-out infinite;
 }
 
+/* Admin car save confirmation. */
+div[role="status"][aria-live="polite"] {
+  top: 1.5rem;
+  bottom: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .recommendation-slide {
     animation: none;

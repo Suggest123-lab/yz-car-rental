@@ -58,11 +58,11 @@ export default function CustomerGallery() {
 
   return (
     <div>
-      <div className="grid gap-5 md:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {visibleCustomers.map((customer) => (
           <article
             key={customer.name}
-            className="group overflow-hidden rounded-3xl bg-[#17352e] shadow-[0_20px_50px_-35px_rgba(23,63,53,0.6)]"
+            className="group overflow-hidden rounded-3xl bg-[#13214d] shadow-[0_20px_50px_-35px_rgba(19,40,92,0.6)]"
           >
             <div className="relative aspect-[4/5] overflow-hidden">
               <Image
@@ -72,7 +72,7 @@ export default function CustomerGallery() {
                 sizes="(min-width: 768px) 33vw, 100vw"
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#102c25]/90 via-[#102c25]/35 to-transparent px-5 pb-5 pt-16 text-white">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0b1b45]/90 via-[#0b1b45]/35 to-transparent px-5 pb-5 pt-16 text-white">
                 <h3 className="text-lg font-medium">{customer.name}</h3>
                 <p className="mt-1 text-sm text-white/75">{customer.occasion}</p>
               </div>
@@ -84,16 +84,16 @@ export default function CustomerGallery() {
         <button
           type="button"
           onClick={showPrevious}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#1c2b5a] text-xl text-[#1c2b5a] transition hover:bg-[#1c2b5a] hover:text-[#f3c878]"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#172a5c] text-xl text-[#172a5c] transition hover:bg-[#172a5c] hover:text-[#f4c75b]"
           aria-label="Show previous customer photos"
         >
           ←
         </button>
-        <span className="text-sm text-[#687870]">Customer moments</span>
+        <span className="text-sm text-[#65718b]">Customer moments</span>
         <button
           type="button"
           onClick={showNext}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#1c2b5a] text-xl text-[#1c2b5a] transition hover:bg-[#1c2b5a] hover:text-[#f3c878]"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#172a5c] text-xl text-[#172a5c] transition hover:bg-[#172a5c] hover:text-[#f4c75b]"
           aria-label="Show next customer photos"
         >
           →
