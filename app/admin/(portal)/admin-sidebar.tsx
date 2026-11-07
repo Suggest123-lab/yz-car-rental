@@ -23,7 +23,7 @@ function NavigationLink({ href, label, exact = false }: { href: string; label: s
     <Link
       href={href}
       aria-current={active ? "page" : undefined}
-      className={`block rounded-xl px-3 py-2.5 text-sm font-medium transition ${active ? "bg-[#f3c878] text-[#1c2b5a]" : "text-white/75 hover:bg-white/10 hover:text-white"}`}
+      className={`block rounded-xl px-3 py-2.5 text-sm font-medium transition ${active ? "bg-[#fca311] text-[#14213d]" : "text-white/75 hover:bg-white/10 hover:text-white"}`}
     >
       {label}
     </Link>
@@ -32,10 +32,10 @@ function NavigationLink({ href, label, exact = false }: { href: string; label: s
 
 export default function AdminSidebar({ username }: { username: string }) {
   return (
-    <aside className="border-b border-white/10 bg-[#173f35] text-white lg:sticky lg:top-0 lg:h-screen lg:w-72 lg:shrink-0 lg:border-b-0 lg:border-r">
+    <aside className="border-b border-white/10 bg-[#14213d] text-white lg:sticky lg:top-0 lg:h-screen lg:w-72 lg:shrink-0 lg:border-b-0 lg:border-r">
       <div className="flex h-full flex-col px-5 py-6 sm:px-8 lg:px-6">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#f3c878]">YZ Car Rental</p>
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#fca311]">YZ Car Rental</p>
           <h1 className="mt-2 text-xl font-semibold tracking-tight">Business manager</h1>
         </div>
 

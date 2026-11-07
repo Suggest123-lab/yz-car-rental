@@ -15,7 +15,7 @@ export default async function AdminPortalLayout({ children }: LayoutProps<"/admi
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f8f4] text-[#17352e] lg:flex">
+    <main className="min-h-screen bg-[#f8f9fb] text-[#14213d] lg:flex">
       <AdminSidebar username={session.username} />
       <div className="min-w-0 flex-1 px-6 py-8 sm:px-10 lg:px-12 lg:py-10">{children}</div>
     </main>

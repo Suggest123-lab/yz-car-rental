@@ -4,7 +4,7 @@ import CustomerGallery from "./customer-gallery";
 
 function BrandMark() {
   return (
-    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#13285c] text-white">
+    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#14213d] text-white">
       <svg
         aria-hidden="true"
         viewBox="0 0 24 24"
@@ -40,25 +40,25 @@ function HeroCar() {
     >
       <path
         d="m101 275 25-71c8-22 24-37 47-44l95-28c22-7 48-10 72-8l92 8c27 2 50 14 67 34l48 58 45 18c13 5 21 17 21 31v27H83v-8c0-8 7-15 18-17Z"
-        fill="#294a99"
+        fill="#263d66"
       />
       <path
         d="m183 165 88-26c20-6 42-9 64-7l29 2-17 74H148l12-34c4-5 12-7 23-9Z"
-        fill="#d9eee1"
+        fill="#e5ebf4"
       />
-      <path d="m382 136 47 4c21 2 40 12 54 28l31 40H366l16-72Z" fill="#d9eee1" />
-      <path d="m344 139 33 2-17 77h-50l34-79Z" fill="#294a99" />
+      <path d="m382 136 47 4c21 2 40 12 54 28l31 40H366l16-72Z" fill="#e5ebf4" />
+      <path d="m344 139 33 2-17 77h-50l34-79Z" fill="#263d66" />
       <path
         d="M89 266h556v16H85v-4c0-6 1-10 4-12Z"
-        fill="#ee9c54"
+        fill="#fca311"
       />
       <path
         d="M106 281v6c0 12 10 22 22 22s22-10 22-22v-6h-44Zm426 0v6c0 12 10 22 22 22s22-10 22-22v-6h-44Z"
-        fill="#18332e"
+        fill="#14213d"
       />
-      <circle cx="128" cy="287" r="13" fill="#d5d9d3" />
-      <circle cx="554" cy="287" r="13" fill="#d5d9d3" />
-      <path d="M102 233h40l-9 24H95l7-24Zm518 1h18c10 0 18 8 18 18v6h-42l6-24Z" fill="#f4c75b" />
+      <circle cx="128" cy="287" r="13" fill="#cbd5e1" />
+      <circle cx="554" cy="287" r="13" fill="#cbd5e1" />
+      <path d="M102 233h40l-9 24H95l7-24Zm518 1h18c10 0 18 8 18 18v6h-42l6-24Z" fill="#fca311" />
       <path
         d="M189 165h236M165 208h334"
         stroke="#fff"
@@ -67,7 +67,7 @@ function HeroCar() {
       />
       <path
         d="M222 237h183"
-        stroke="#f4f4e9"
+        stroke="#fff7e6"
         strokeOpacity=".55"
         strokeWidth="3"
         strokeLinecap="round"
@@ -133,29 +133,29 @@ function HeroRecommendations() {
       aria-label="Recommended cars"
     >
       <div className="overflow-hidden rounded-[2rem] border border-white/30 bg-white/15 p-5 shadow-2xl shadow-black/25 backdrop-blur-md sm:p-6">
-        <p className="text-xs font-medium tracking-[0.14em] text-[#f4c75b]">
+        <p className="text-xs font-medium tracking-[0.14em] text-[#fca311]">
           RECOMMENDED FOR YOU
         </p>
         <div className="relative mt-4 h-[19rem]">
           {recommendedCars.map((car, index) => (
             <article
               key={car.name}
-              className="recommendation-slide absolute inset-0 overflow-hidden rounded-2xl bg-[#f6f8fe] text-[#13214d]"
+              className="recommendation-slide absolute inset-0 overflow-hidden rounded-2xl bg-[#f8f9fb] text-[#14213d]"
               style={{ animationDelay: `${index * 4}s` }}
             >
-              <div className="relative flex h-40 items-center justify-center overflow-hidden bg-[#eaf0fb] px-5">
-                <div className="absolute -left-10 -top-10 h-32 w-32 rounded-full bg-[#dbe6fa]" />
-                <div className="absolute bottom-5 left-8 right-8 h-5 rounded-[50%] bg-[#13285c]/10 blur-lg" />
+              <div className="relative flex h-40 items-center justify-center overflow-hidden bg-[#eef2f7] px-5">
+                <div className="absolute -left-10 -top-10 h-32 w-32 rounded-full bg-[#e5ebf4]" />
+                <div className="absolute bottom-5 left-8 right-8 h-5 rounded-[50%] bg-[#14213d]/10 blur-lg" />
                 <div className="relative w-full">
                   <HeroCar />
                 </div>
               </div>
               <div className="p-5">
-                <p className="text-xs text-[#71809d]">{car.type}</p>
+                <p className="text-xs text-[#5f6775]">{car.type}</p>
                 <h2 className="mt-1 text-2xl font-semibold tracking-tight">{car.name}</h2>
                 <div className="mt-3 flex items-end justify-between gap-4">
-                  <span className="text-sm text-[#65718b]">{car.details}</span>
-                  <span className="text-lg font-semibold text-[#172a5c]">{car.rate}<span className="text-xs font-normal text-[#65718b]"> / day</span></span>
+                  <span className="text-sm text-[#5f6775]">{car.details}</span>
+                  <span className="text-lg font-semibold text-[#14213d]">{car.rate}<span className="text-xs font-normal text-[#5f6775]"> / day</span></span>
                 </div>
               </div>
             </article>
@@ -163,7 +163,7 @@ function HeroRecommendations() {
         </div>
         <Link
           href="/fleet"
-          className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#f4c75b] px-5 py-3 text-sm font-medium text-[#172a5c] transition hover:bg-[#ffdc7b]"
+          className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#fca311] px-5 py-3 text-sm font-medium text-[#14213d] transition hover:bg-[#fca311]"
         >
           See More
         </Link>
@@ -177,7 +177,7 @@ function FloatingActions() {
     <div className="fixed bottom-5 right-5 z-30 flex flex-col items-end gap-3 sm:bottom-7 sm:right-7">
       <details className="group relative">
         <summary
-          className="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-full bg-[#13285c] text-white shadow-lg shadow-[#13285c]/25 transition hover:-translate-y-0.5 hover:bg-[#213b80] [&::-webkit-details-marker]:hidden"
+          className="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-full bg-[#14213d] text-white shadow-lg shadow-[#14213d]/25 transition hover:-translate-y-0.5 hover:bg-[#263d66] [&::-webkit-details-marker]:hidden"
           aria-label="Open contact shortcuts"
         >
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
@@ -186,24 +186,24 @@ function FloatingActions() {
           </svg>
           <span className="sr-only">Open contact shortcuts</span>
         </summary>
-        <div className="absolute bottom-0 right-14 w-56 rounded-2xl border border-[#dce4f2] bg-white p-3 shadow-xl shadow-[#13285c]/15">
-          <p className="px-2 pb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#65718b]">
+        <div className="absolute bottom-0 right-14 w-56 rounded-2xl border border-[#dbe2ef] bg-white p-3 shadow-xl shadow-[#14213d]/15">
+          <p className="px-2 pb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#5f6775]">
             Contact us
           </p>
           <a
             href="https://m.me/yzcarrentalcdo"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-3 rounded-xl px-2 py-2.5 text-sm font-medium text-[#13214d] transition hover:bg-[#f3f6fc]"
+            className="flex items-center gap-3 rounded-xl px-2 py-2.5 text-sm font-medium text-[#14213d] transition hover:bg-[#f8f9fb]"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0084ff] text-xs font-bold text-white">M</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#fca311] text-xs font-bold text-white">M</span>
             Messenger
           </a>
           <a
             href="tel:+639171234567"
-            className="flex items-center gap-3 rounded-xl px-2 py-2.5 text-sm font-medium text-[#13214d] transition hover:bg-[#f3f6fc]"
+            className="flex items-center gap-3 rounded-xl px-2 py-2.5 text-sm font-medium text-[#14213d] transition hover:bg-[#f8f9fb]"
           >
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-8 w-8 rounded-full bg-[#e8eefb] p-2 text-[#13285c]">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-8 w-8 rounded-full bg-[#e8eefb] p-2 text-[#14213d]">
               <path d="M7.5 3.5 5.7 5.2c-1.1 1.1.1 4.5 2.8 7.2s6.1 3.9 7.2 2.8l1.8-1.8-2.7-2.2-1.6 1c-.8-.3-2.1-1.6-2.4-2.4l1-1.6-2.3-2.7Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
             </svg>
             +63 917 123 4567
@@ -213,7 +213,7 @@ function FloatingActions() {
 
       <a
         href="#top"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#f4c75b] text-[#172a5c] shadow-lg shadow-[#13285c]/20 transition hover:-translate-y-0.5 hover:bg-[#ffdc7b]"
+        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#fca311] text-[#14213d] shadow-lg shadow-[#14213d]/20 transition hover:-translate-y-0.5 hover:bg-[#fca311]"
         aria-label="Back to top"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
@@ -226,7 +226,7 @@ function FloatingActions() {
 
 export default function Home() {
   return (
-    <main id="top" className="relative min-h-screen overflow-hidden bg-[#f6f8fe] text-[#13214d]">
+    <main id="top" className="relative min-h-screen overflow-hidden bg-[#f8f9fb] text-[#14213d]">
       <div className="absolute inset-x-0 top-0 h-[max(100svh,52rem)] lg:h-screen">
         <Image
           src="/images/asset_landing.jpg"
@@ -236,7 +236,7 @@ export default function Home() {
           sizes="100vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0b1b45]/88 via-[#13285c]/60 to-[#0b1b45]/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#14213d]/88 via-[#14213d]/60 to-[#14213d]/25" />
       </div>
 
       <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-10 sm:py-5 lg:px-12">
@@ -250,24 +250,24 @@ export default function Home() {
           />
         </a>
         <nav className="ml-auto hidden items-center gap-7 text-sm font-normal text-white/90 lg:flex">
-          <a className="transition hover:text-[#f4c75b]" href="#">
+          <a className="transition hover:text-[#fca311]" href="#">
             HOME
           </a>
-          <Link className="transition hover:text-[#f4c75b]" href="/fleet">
+          <Link className="transition hover:text-[#fca311]" href="/fleet">
             OUR FLEET
           </Link>
-          <a className="transition hover:text-[#f4c75b]" href="#faq">
+          <a className="transition hover:text-[#fca311]" href="#faq">
             FAQ
           </a>
-          <a className="transition hover:text-[#f4c75b]" href="#about">
+          <a className="transition hover:text-[#fca311]" href="#about">
             ABOUT US
           </a>
-          <a className="transition hover:text-[#f4c75b]" href="#contact">
+          <a className="transition hover:text-[#fca311]" href="#contact">
             CONTACT US
           </a>
           <Link
-            href="/fleet"
-            className="rounded-full border border-[#f4c75b] bg-[#f4c75b] px-5 py-3 font-medium text-[#172a5c] shadow-lg shadow-black/25 transition hover:-translate-y-0.5 hover:bg-[#ffdc7b]"
+            href="/booking"
+            className="rounded-full border border-[#fca311] bg-[#fca311] px-5 py-3 font-medium text-[#14213d] shadow-lg shadow-black/25 transition hover:-translate-y-0.5 hover:bg-[#fca311]"
           >
             Book Now
           </Link>
@@ -279,7 +279,7 @@ export default function Home() {
                 <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
               </svg>
             </summary>
-            <nav className="absolute right-0 top-full z-20 mt-3 flex w-56 flex-col rounded-2xl border border-white/20 bg-[#13285c]/95 p-2 text-sm font-medium text-white shadow-xl backdrop-blur" aria-label="Mobile navigation">
+            <nav className="absolute right-0 top-full z-20 mt-3 flex w-56 flex-col rounded-2xl border border-white/20 bg-[#14213d]/95 p-2 text-sm font-medium text-white shadow-xl backdrop-blur" aria-label="Mobile navigation">
               <a className="rounded-xl px-4 py-3 transition hover:bg-white/10" href="#">Home</a>
               <Link className="rounded-xl px-4 py-3 transition hover:bg-white/10" href="/fleet">Our fleet</Link>
               <a className="rounded-xl px-4 py-3 transition hover:bg-white/10" href="#faq">FAQ</a>
@@ -288,8 +288,8 @@ export default function Home() {
             </nav>
           </details>
           <Link
-            href="/fleet"
-            className="rounded-full border border-[#f4c75b] bg-[#f4c75b] px-4 py-3 text-sm font-medium text-[#172a5c] shadow-lg shadow-black/25 transition hover:bg-[#ffdc7b] sm:px-5"
+            href="/booking"
+            className="rounded-full border border-[#fca311] bg-[#fca311] px-4 py-3 text-sm font-medium text-[#14213d] shadow-lg shadow-black/25 transition hover:bg-[#fca311] sm:px-5"
           >
             Book Now
           </Link>
@@ -300,7 +300,7 @@ export default function Home() {
         <div className="relative z-10">
           <h1 className="max-w-xl text-4xl font-semibold leading-[1.08] tracking-[-0.055em] sm:text-6xl lg:text-[4.5rem]">
             Make room for the{" "}
-            <span className="font-serif font-medium italic text-[#f4c75b]">
+            <span className="font-serif font-medium italic text-[#fca311]">
               good
             </span>{" "}
             in getting there.
@@ -312,33 +312,33 @@ export default function Home() {
         </div>
 
         <div className="hidden relative mx-auto w-full max-w-2xl lg:ml-auto">
-          <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#e8b37c]/30 blur-2xl" />
-          <div className="absolute -bottom-8 -left-6 h-40 w-40 rounded-full bg-[#b8d5bd]/50 blur-2xl" />
-          <div className="relative flex aspect-[1.18] items-center justify-center overflow-hidden rounded-[2rem] bg-[#e7eee5] sm:rounded-[2.5rem]">
+          <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#fca311]/30 blur-2xl" />
+          <div className="absolute -bottom-8 -left-6 h-40 w-40 rounded-full bg-[#e5ebf4]/50 blur-2xl" />
+          <div className="relative flex aspect-[1.18] items-center justify-center overflow-hidden rounded-[2rem] bg-[#eef2f7] sm:rounded-[2.5rem]">
             <div className="absolute -right-16 -top-28 h-80 w-80 rounded-full border border-white/60" />
             <div className="absolute -right-2 -top-16 h-64 w-64 rounded-full border border-white/60" />
-            <div className="absolute bottom-10 left-8 h-40 w-40 rounded-full bg-[#d2dff7]" />
-            <div className="absolute bottom-[18%] left-0 right-0 h-px bg-[#cad7f0]" />
-            <div className="absolute bottom-[18%] left-[12%] right-[8%] h-10 rounded-[50%] bg-[#13285c]/10 blur-xl" />
+            <div className="absolute bottom-10 left-8 h-40 w-40 rounded-full bg-[#e5ebf4]" />
+            <div className="absolute bottom-[18%] left-0 right-0 h-px bg-[#e5ebf4]" />
+            <div className="absolute bottom-[18%] left-[12%] right-[8%] h-10 rounded-[50%] bg-[#14213d]/10 blur-xl" />
             <div className="w-[110%] translate-y-2 sm:translate-y-5">
               <HeroCar />
             </div>
-            <div className="absolute left-5 top-5 flex items-center gap-3 rounded-2xl border border-white/80 bg-white/90 px-4 py-3 shadow-lg shadow-[#13285c]/5 backdrop-blur sm:left-8 sm:top-8">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#fff5db] text-lg">
+            <div className="absolute left-5 top-5 flex items-center gap-3 rounded-2xl border border-white/80 bg-white/90 px-4 py-3 shadow-lg shadow-[#14213d]/5 backdrop-blur sm:left-8 sm:top-8">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#fff7e6] text-lg">
                 ✦
               </span>
               <span>
-                <span className="block text-xs text-[#71809d]">Your next trip</span>
+                <span className="block text-xs text-[#5f6775]">Your next trip</span>
                 <span className="block text-sm font-semibold">Starts here</span>
               </span>
             </div>
-            <div className="absolute bottom-5 right-5 rounded-2xl bg-[#13285c] px-4 py-3 text-white shadow-xl shadow-[#13285c]/15 sm:bottom-8 sm:right-8 sm:px-5">
+            <div className="absolute bottom-5 right-5 rounded-2xl bg-[#14213d] px-4 py-3 text-white shadow-xl shadow-[#14213d]/15 sm:bottom-8 sm:right-8 sm:px-5">
               <span className="block text-xs text-white/70">A ride for your plans</span>
               <span className="mt-1 block text-sm font-semibolfd">Ready when you are</span>
             </div>
           </div>
-          <div className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-[#e0e7f5] bg-white px-4 py-2.5 text-xs font-medium text-[#52617e] shadow-lg shadow-[#13285c]/5 sm:bottom-[-1.4rem] sm:px-5 sm:py-3 sm:text-sm">
-            <span className="h-2 w-2 rounded-full bg-[#365db1]" />
+          <div className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-[#e5ebf4] bg-white px-4 py-2.5 text-xs font-medium text-[#5f6775] shadow-lg shadow-[#14213d]/5 sm:bottom-[-1.4rem] sm:px-5 sm:py-3 sm:text-sm">
+            <span className="h-2 w-2 rounded-full bg-[#fca311]" />
             A little more freedom, every mile
           </div>
         </div>
@@ -348,29 +348,29 @@ export default function Home() {
       <section id="faq" className="bg-white">
         <div className="mx-auto max-w-4xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12">
           <div className="text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#bd8518]">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#fca311]">
               Helpful answers
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
               Frequently asked questions.
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-[#65718b]">
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-[#5f6775]">
               Everything you need to know before getting behind the wheel.
             </p>
           </div>
-          <div className="mt-10 divide-y divide-[#dce4f2] rounded-2xl border border-[#dce4f2]">
+          <div className="mt-10 divide-y divide-[#dbe2ef] rounded-2xl border border-[#dbe2ef]">
             {faqItems.map((item) => (
               <details key={item.question} className="group px-5 py-1 sm:px-6">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-left text-base font-medium text-[#13214d]">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-left text-base font-medium text-[#14213d]">
                   {item.question}
                   <span
                     aria-hidden="true"
-                    className="text-xl leading-none text-[#172a5c] transition-transform group-open:rotate-45"
+                    className="text-xl leading-none text-[#14213d] transition-transform group-open:rotate-45"
                   >
                     +
                   </span>
                 </summary>
-                <p className="max-w-2xl pb-5 text-sm leading-6 text-[#65718b]">
+                <p className="max-w-2xl pb-5 text-sm leading-6 text-[#5f6775]">
                   {item.answer}
                 </p>
               </details>
@@ -379,18 +379,18 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-[#e4eaf5] bg-[#f6f8fe]">
+      <section className="border-t border-[#dbe2ef] bg-[#f8f9fb]">
         <div className="mx-auto max-w-7xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12">
           <div className="mb-10 flex flex-col justify-between gap-4 sm:mb-12 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#bd8518]">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#fca311]">
                 On the road with us
               </p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
                 Customer moments.
               </h2>
             </div>
-            <p className="max-w-sm text-sm leading-6 text-[#65718b]">
+            <p className="max-w-sm text-sm leading-6 text-[#5f6775]">
               A few of the people who have made YZ Car Rental part of their journey.
             </p>
           </div>
@@ -398,29 +398,29 @@ export default function Home() {
         </div>
       </section>
 
-      <footer id="contact" className="border-t border-[#e4eaf5] bg-white/70">
+      <footer id="contact" className="border-t border-[#dbe2ef] bg-white/70">
         <div className="mx-auto max-w-7xl px-6 py-12 sm:px-10 lg:px-12">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
             <div>
-              <a href="#" className="flex items-center gap-2 font-semibold text-[#13214d]">
+              <a href="#" className="flex items-center gap-2 font-semibold text-[#14213d]">
                 <BrandMark />
                 yzdrive
               </a>
-              <p className="mt-4 max-w-xs text-sm leading-6 text-[#65718b]">
+              <p className="mt-4 max-w-xs text-sm leading-6 text-[#5f6775]">
                 Good trips start with a good ride. Let us help you get there.
               </p>
             </div>
 
             <div>
-              <h2 className="text-sm font-semibold text-[#13214d]">Contact us</h2>
-              <ul className="mt-4 space-y-3 text-sm text-[#65718b]">
+              <h2 className="text-sm font-semibold text-[#14213d]">Contact us</h2>
+              <ul className="mt-4 space-y-3 text-sm text-[#5f6775]">
                 <li>
-                  <a className="transition hover:text-[#13285c]" href="tel:+639171234567">
+                  <a className="transition hover:text-[#14213d]" href="tel:+639171234567">
                     +63 917 123 4567
                   </a>
                 </li>
                 <li>
-                  <a className="transition hover:text-[#13285c]" href="mailto:hello@yzdrive.ph">
+                  <a className="transition hover:text-[#14213d]" href="mailto:hello@yzdrive.ph">
                     hello@yzdrive.ph
                   </a>
                 </li>
@@ -431,29 +431,29 @@ export default function Home() {
             </div>
 
             <div>
-              <h2 className="text-sm font-semibold text-[#13214d]">Quick links</h2>
+              <h2 className="text-sm font-semibold text-[#14213d]">Quick links</h2>
               <ul className="mt-4 space-y-3 text-sm">
-                <li><a className="text-[#65718b] transition hover:text-[#13285c]" href="#">Home</a></li>
-                <li><Link className="text-[#65718b] transition hover:text-[#13285c]" href="/fleet">Our fleet</Link></li>
-                <li><a className="text-[#65718b] transition hover:text-[#13285c]" href="#faq">FAQ</a></li>
-                <li><a className="text-[#65718b] transition hover:text-[#13285c]" href="#contact">Contact us</a></li>
+                <li><a className="text-[#5f6775] transition hover:text-[#14213d]" href="#">Home</a></li>
+                <li><Link className="text-[#5f6775] transition hover:text-[#14213d]" href="/fleet">Our fleet</Link></li>
+                <li><a className="text-[#5f6775] transition hover:text-[#14213d]" href="#faq">FAQ</a></li>
+                <li><a className="text-[#5f6775] transition hover:text-[#14213d]" href="#contact">Contact us</a></li>
               </ul>
             </div>
 
             <div>
-              <h2 className="text-sm font-semibold text-[#13214d]">We accept</h2>
-              <p className="mt-4 text-sm leading-6 text-[#65718b]">
+              <h2 className="text-sm font-semibold text-[#14213d]">We accept</h2>
+              <p className="mt-4 text-sm leading-6 text-[#5f6775]">
                 Major credit and debit cards are welcome.
               </p>
               <div className="mt-4 flex flex-wrap gap-2" aria-label="Accepted cards">
-                <span className="rounded-md border border-[#dce4f2] bg-white px-3 py-1.5 text-xs font-bold tracking-wide text-[#1a3b77]">VISA</span>
-                <span className="rounded-md border border-[#dce4f2] bg-white px-3 py-1.5 text-xs font-bold tracking-wide text-[#e05232]">mastercard</span>
-                <span className="rounded-md border border-[#dce4f2] bg-white px-3 py-1.5 text-xs font-bold tracking-wide text-[#2874a6]">JCB</span>
+                <span className="rounded-md border border-[#dbe2ef] bg-white px-3 py-1.5 text-xs font-bold tracking-wide text-[#14213d]">VISA</span>
+                <span className="rounded-md border border-[#dbe2ef] bg-white px-3 py-1.5 text-xs font-bold tracking-wide text-[#fca311]">mastercard</span>
+                <span className="rounded-md border border-[#dbe2ef] bg-white px-3 py-1.5 text-xs font-bold tracking-wide text-[#14213d]">JCB</span>
               </div>
             </div>
           </div>
 
-          <div className="mt-10 border-t border-[#e4eaf5] pt-6 text-sm text-[#65718b]">
+          <div className="mt-10 border-t border-[#dbe2ef] pt-6 text-sm text-[#5f6775]">
             © yzcarrentalcdo. All rights reserved.
           </div>
         </div>
