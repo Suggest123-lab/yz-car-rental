@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { connection } from "next/server";
 import { ADMIN_SESSION_COOKIE, getAdminSession, isAdminConfigured } from "@/lib/admin-auth";
 
+// A valid login session is time-sensitive, so this page intentionally renders per request.
+export const instant = false;
+
 export default async function AdminLoginPage(props: PageProps<"/admin/login">) {
-  // A valid login session is time-sensitive and cannot be prerendered.
-  await connection();
   const [searchParams, cookieStore] = await Promise.all([props.searchParams, cookies()]);
   const session = getAdminSession(cookieStore.get(ADMIN_SESSION_COOKIE)?.value);
 

@@ -1,12 +1,12 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { connection } from "next/server";
 import { ADMIN_SESSION_COOKIE, getAdminSession } from "@/lib/admin-auth";
 import AdminSidebar from "./admin-sidebar";
 
+// Admin pages require the session before rendering, so they intentionally block per request.
+export const instant = false;
+
 export default async function AdminPortalLayout({ children }: LayoutProps<"/admin">) {
-  // Session expiry uses the current time, so this authentication check must run per request.
-  await connection();
   const cookieStore = await cookies();
   const session = getAdminSession(cookieStore.get(ADMIN_SESSION_COOKIE)?.value);
 
