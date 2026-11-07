@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "YzDrive | Car Rental",
-  description: "Find a comfortable ride for your next trip with YzDrive.",
+  title: "YZ Car Rental CDO",
+  description: "Find a comfortable ride for your next trip with YZ Car Rental.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
