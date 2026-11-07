@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getCars } from "@/lib/cars";
+import type { Car } from "@/lib/car-types";
 import CustomerGallery from "./customer-gallery";
 
 function BrandMark() {
@@ -76,33 +78,6 @@ function HeroCar() {
   );
 }
 
-const recommendedCars = [
-  {
-    name: "Toyota Vios",
-    type: "Compact sedan",
-    rate: "₱1,500",
-    details: "5 seats · Automatic",
-  },
-  {
-    name: "Honda City",
-    type: "City sedan",
-    rate: "₱1,700",
-    details: "5 seats · Automatic",
-  },
-  {
-    name: "Mitsubishi Mirage",
-    type: "Economy hatchback",
-    rate: "₱1,300",
-    details: "5 seats · Automatic",
-  },
-  {
-    name: "Toyota Innova",
-    type: "Family MPV",
-    rate: "₱2,500",
-    details: "7 seats · Automatic",
-  },
-];
-
 const faqItems = [
   {
     question: "What do I need to rent a car?",
@@ -126,47 +101,69 @@ const faqItems = [
   },
 ];
 
-function HeroRecommendations() {
+function peso(value: string) {
+  return new Intl.NumberFormat("en-PH", {
+    style: "currency",
+    currency: "PHP",
+    maximumFractionDigits: 0,
+  }).format(Number(value));
+}
+
+function HeroRecommendations({ cars }: { cars: Car[] }) {
+  if (!cars.length) {
+    return (
+      <aside className="relative mx-auto w-full max-w-xl lg:ml-auto" aria-label="Recommended cars">
+        <div className="rounded-[2rem] bg-white/95 p-8 text-[#14213d] shadow-2xl shadow-black/25">
+          <p className="text-xs font-medium tracking-[0.14em] text-[#5f6775]">OUR FLEET</p>
+          <h2 className="mt-3 text-2xl font-semibold">New rides are coming soon.</h2>
+          <p className="mt-3 text-sm leading-6 text-[#5f6775]">Our vehicle listing is being updated. Browse the fleet for the latest details.</p>
+          <Link href="/fleet" className="mt-6 inline-flex rounded-full bg-[#fca311] px-5 py-3 text-sm font-medium text-[#14213d] transition hover:brightness-105">View our fleet</Link>
+        </div>
+      </aside>
+    );
+  }
+
   return (
     <aside
-      className="relative mx-auto w-full max-w-md lg:ml-auto"
+      className="relative mx-auto w-full max-w-xl lg:ml-auto"
       aria-label="Recommended cars"
     >
-      <div className="overflow-hidden rounded-[2rem] border border-white/30 bg-white/15 p-5 shadow-2xl shadow-black/25 backdrop-blur-md sm:p-6">
-        <p className="text-xs font-medium tracking-[0.14em] text-[#fca311]">
-          RECOMMENDED FOR YOU
-        </p>
-        <div className="relative mt-4 h-[19rem]">
-          {recommendedCars.map((car, index) => (
+      <div className="relative p-5 sm:p-6">
+        <div className="relative mt-3 h-[19rem] sm:h-[21rem]">
+          {cars.map((car, index) => (
             <article
               key={car.name}
-              className="recommendation-slide absolute inset-0 overflow-hidden rounded-2xl bg-[#f8f9fb] text-[#14213d]"
+              className="recommendation-slide absolute inset-0 text-white"
               style={{ animationDelay: `${index * 4}s` }}
             >
-              <div className="relative flex h-40 items-center justify-center overflow-hidden bg-[#eef2f7] px-5">
-                <div className="absolute -left-10 -top-10 h-32 w-32 rounded-full bg-[#e5ebf4]" />
-                <div className="absolute bottom-5 left-8 right-8 h-5 rounded-[50%] bg-[#14213d]/10 blur-lg" />
-                <div className="relative w-full">
-                  <HeroCar />
-                </div>
+              <div aria-hidden="true" className="absolute bottom-7 left-7 right-3 top-3 -rotate-[10deg] rounded-[3.25rem] bg-white shadow-[0_22px_35px_-22px_rgba(20,33,61,0.6)]" />
+              <div className="absolute bottom-7 left-7 right-3 top-3 -rotate-[5deg] overflow-hidden rounded-[3.25rem] bg-[#14213d] shadow-[0_22px_35px_-22px_rgba(20,33,61,0.75)]">
+                <Image
+                  src={car.imageUrl ?? "/images/asset_landing.jpg"}
+                  alt={`${car.name} available for rent`}
+                  fill
+                  sizes="(min-width: 1024px) 36rem, 100vw"
+                  className="scale-105 object-cover object-center rotate-[5deg]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#14213d]/85 via-[#14213d]/10 to-[#14213d]/10" />
               </div>
-              <div className="p-5">
-                <p className="text-xs text-[#5f6775]">{car.type}</p>
-                <h2 className="mt-1 text-2xl font-semibold tracking-tight">{car.name}</h2>
-                <div className="mt-3 flex items-end justify-between gap-4">
-                  <span className="text-sm text-[#5f6775]">{car.details}</span>
-                  <span className="text-lg font-semibold text-[#14213d]">{car.rate}<span className="text-xs font-normal text-[#5f6775]"> / day</span></span>
+              <div className="absolute bottom-10 right-3 z-10 text-right sm:right-5">
+                <h2 className="text-2xl font-medium tracking-tight text-white sm:text-3xl">{car.name}</h2>
+                <p className="mt-1 text-sm text-white/85">{car.category}</p>
+              </div>
+              <div className="absolute bottom-1 left-0 z-10 grid w-40 gap-2 sm:w-44">
+                <div className="rounded-l-xl bg-[#fca311] px-3 py-2.5 text-[#14213d] shadow-lg shadow-[#14213d]/15">
+                  <p className="text-2xl font-medium leading-none">{peso(car.startingRate)}</p>
+                  <p className="mt-1 text-xs text-[#14213d]/70">Starting daily rate</p>
+                </div>
+                <div className="rounded-l-xl bg-white px-3 py-2.5 text-[#14213d] shadow-lg shadow-[#14213d]/15">
+                  <p className="text-base font-medium">{car.capacity} seats · {car.transmission}</p>
+                  <p className="mt-1 text-xs text-[#5f6775]">Ready for your trip</p>
                 </div>
               </div>
             </article>
           ))}
         </div>
-        <Link
-          href="/fleet"
-          className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#fca311] px-5 py-3 text-sm font-medium text-[#14213d] transition hover:bg-[#fca311]"
-        >
-          See More
-        </Link>
       </div>
     </aside>
   );
@@ -224,7 +221,13 @@ function FloatingActions() {
   );
 }
 
-export default function Home() {
+// The landing carousel reflects the live vehicle listing.
+export const instant = false;
+
+export default async function Home() {
+  const cars = await getCars();
+  const listedCars = cars.slice(0, 4);
+
   return (
     <main id="top" className="relative min-h-screen overflow-hidden bg-[#f8f9fb] text-[#14213d]">
       <div className="absolute inset-x-0 top-0 h-[max(100svh,52rem)] lg:h-screen">
@@ -309,6 +312,12 @@ export default function Home() {
             Your next trip deserves a comfortable ride. Find a car that fits
             your plans and enjoy the journey at your own pace.
           </p>
+          <Link
+            href="/fleet"
+            className="mt-7 inline-flex rounded-full bg-[#fca311] px-5 py-3 text-sm font-medium text-[#14213d] shadow-lg shadow-black/25 transition hover:-translate-y-0.5 hover:brightness-105"
+          >
+            View our fleet
+          </Link>
         </div>
 
         <div className="hidden relative mx-auto w-full max-w-2xl lg:ml-auto">
@@ -342,7 +351,7 @@ export default function Home() {
             A little more freedom, every mile
           </div>
         </div>
-        <HeroRecommendations />
+        <HeroRecommendations cars={listedCars} />
       </section>
 
       <section id="faq" className="bg-white">
