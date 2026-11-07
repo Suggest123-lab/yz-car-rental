@@ -1,5 +1,5 @@
--- Extends the initial cars table without removing its existing records.
--- Run this migration against the same PostgreSQL database configured in .env.local.
+-- Extends the cars table created by 000_create_cars_table.sql without removing its existing records.
+-- Run this migration against the same PostgreSQL database configured in your environment variables.
 
 BEGIN;
 

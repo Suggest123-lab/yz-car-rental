@@ -1,4 +1,4 @@
--- Run after 001_extend_cars_for_admin.sql against the configured PostgreSQL database.
+-- Run after 000_create_cars_table.sql and 001_extend_cars_for_admin.sql against the configured PostgreSQL database.
 -- Booking statuses are kept in their own table so the operational workflow is explicit.
 
 BEGIN;

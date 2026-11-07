@@ -5,6 +5,7 @@ export type BookingStatus = (typeof bookingStatuses)[number];
 
 export type Booking = {
   id: string;
+  carId: string;
   status: BookingStatus;
   statusLabel: string;
   customerName: string;
@@ -25,6 +26,7 @@ export async function getBookings(): Promise<Booking[]> {
   const { rows } = await pool.query<Booking>(`
     SELECT
       b.booking_id::text AS "id",
+      b.car_id::text AS "carId",
       s.code AS "status",
       s.label AS "statusLabel",
       b.customer_name AS "customerName",
