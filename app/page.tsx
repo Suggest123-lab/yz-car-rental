@@ -4,6 +4,7 @@ import { getCars } from "@/lib/cars";
 import type { Car } from "@/lib/car-types";
 import { getCustomerMoments } from "@/lib/customer-moments";
 import CustomerGallery from "./customer-gallery";
+import FloatingActions from "./floating-actions";
 import HeroRecommendations from "./hero-recommendations";
 
 function BrandMark() {
@@ -171,58 +172,6 @@ function LegacyHeroRecommendations({ cars }: { cars: Car[] }) {
   );
 }
 
-function FloatingActions() {
-  return (
-    <div className="fixed bottom-5 right-5 z-30 flex flex-col items-end gap-3 sm:bottom-7 sm:right-7">
-      <details className="group relative">
-        <summary
-          className="flex h-12 w-12 cursor-pointer list-none items-center justify-center rounded-full bg-[#14213d] text-white shadow-lg shadow-[#14213d]/25 transition hover:-translate-y-0.5 hover:bg-[#263d66] [&::-webkit-details-marker]:hidden"
-          aria-label="Open contact shortcuts"
-        >
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-            <path d="M20 11.5a7.5 7.5 0 0 1-11.1 6.57L4 20l1.94-4.38A7.5 7.5 0 1 1 20 11.5Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-            <path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" />
-          </svg>
-          <span className="sr-only">Open contact shortcuts</span>
-        </summary>
-        <div className="absolute bottom-0 right-14 w-56 rounded-2xl border border-[#dbe2ef] bg-white p-3 shadow-xl shadow-[#14213d]/15">
-          <p className="px-2 pb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#5f6775]">
-            Contact us
-          </p>
-          <a
-            href="https://www.facebook.com/profile.php?id=100092013557604"
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-3 rounded-xl px-2 py-2.5 text-sm font-medium text-[#14213d] transition hover:bg-[#f8f9fb]"
-          >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#fca311] text-xs font-bold text-white">M</span>
-            Messenger
-          </a>
-          <a
-            href="tel:+639171234567"
-            className="flex items-center gap-3 rounded-xl px-2 py-2.5 text-sm font-medium text-[#14213d] transition hover:bg-[#f8f9fb]"
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-8 w-8 rounded-full bg-[#e8eefb] p-2 text-[#14213d]">
-              <path d="M7.5 3.5 5.7 5.2c-1.1 1.1.1 4.5 2.8 7.2s6.1 3.9 7.2 2.8l1.8-1.8-2.7-2.2-1.6 1c-.8-.3-2.1-1.6-2.4-2.4l1-1.6-2.3-2.7Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-            </svg>
-            +63 917 123 4567
-          </a>
-        </div>
-      </details>
-
-      <a
-        href="#top"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#fca311] text-[#14213d] shadow-lg shadow-[#14213d]/20 transition hover:-translate-y-0.5 hover:bg-[#fca311]"
-        aria-label="Back to top"
-      >
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-          <path d="m6 14 6-6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </a>
-    </div>
-  );
-}
-
 // The landing carousel reflects the live vehicle listing.
 export const instant = false;
 
@@ -244,7 +193,7 @@ export default async function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#14213d]/88 via-[#14213d]/60 to-[#14213d]/25" />
       </div>
 
-      <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-10 sm:py-5 lg:px-12">
+      <header className="relative z-50 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-10 sm:py-5 lg:px-12">
         <a href="#" aria-label="YZ Car Rental home">
           <Image
             src="/images/yz_logo.jpg"
@@ -277,14 +226,14 @@ export default async function Home() {
             Book Now
           </Link>
         </nav>
-        <div className="ml-auto flex items-center gap-2 lg:hidden">
-          <details className="group relative">
+        <div className="contents lg:hidden">
+          <details className="group absolute right-4 top-1/2 z-[60] -translate-y-1/2 sm:right-10">
             <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full border border-white/40 text-white transition hover:bg-white/10 [&::-webkit-details-marker]:hidden" aria-label="Open navigation menu">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
                 <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
               </svg>
             </summary>
-            <nav className="absolute right-0 top-full z-20 mt-3 flex w-56 flex-col rounded-2xl border border-white/20 bg-[#14213d]/95 p-2 text-sm font-medium text-white shadow-xl backdrop-blur" aria-label="Mobile navigation">
+            <nav className="absolute right-0 top-full z-[70] mt-3 flex w-56 flex-col rounded-2xl border border-white/20 bg-[#14213d]/95 p-2 text-sm font-medium text-white shadow-xl backdrop-blur" aria-label="Mobile navigation">
               <a className="rounded-xl px-4 py-3 transition hover:bg-white/10" href="#">Home</a>
               <Link className="rounded-xl px-4 py-3 transition hover:bg-white/10" href="/fleet">Our fleet</Link>
               <a className="rounded-xl px-4 py-3 transition hover:bg-white/10" href="#faq">FAQ</a>
@@ -294,7 +243,7 @@ export default async function Home() {
           </details>
           <Link
             href="/booking"
-            className="rounded-full border border-[#fca311] bg-[#fca311] px-4 py-3 text-sm font-medium text-[#14213d] shadow-lg shadow-black/25 transition hover:bg-[#fca311] sm:px-5"
+            className="absolute left-1/2 top-1/2 z-[60] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#fca311] bg-[#fca311] px-4 py-3 text-sm font-medium text-[#14213d] shadow-lg shadow-black/25 transition hover:bg-[#fca311] sm:px-5"
           >
             Book Now
           </Link>
@@ -497,7 +446,7 @@ export default async function Home() {
             <div>
               <a href="#" className="flex items-center gap-2 font-semibold text-[#14213d]">
                 <BrandMark />
-                yzdrive
+                YZ Car Rental
               </a>
               <p className="mt-4 max-w-xs text-sm leading-6 text-[#5f6775]">
                 Good trips start with a good ride. Let us help you get there.

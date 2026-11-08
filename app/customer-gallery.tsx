@@ -31,11 +31,11 @@ export default function CustomerGallery({ customerMoments }: { customerMoments: 
 
   return (
     <div>
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {visibleCustomers.map((customer) => (
-          <article key={customer.id} className="group overflow-hidden rounded-3xl bg-[#14213d] shadow-[0_20px_50px_-35px_rgba(19,40,92,0.6)]">
+      <div className="grid gap-5 lg:grid-cols-3">
+        {visibleCustomers.map((customer, index) => (
+          <article key={customer.id} className={`group overflow-hidden rounded-3xl bg-[#14213d] shadow-[0_20px_50px_-35px_rgba(19,40,92,0.6)] ${index > 0 ? "hidden lg:block" : ""}`}>
             <div className="relative aspect-[4/5] overflow-hidden">
-              <Image src={customer.imageUrl} alt={customer.customerName ? `${customer.customerName}, a YZ Car Rental customer` : "YZ Car Rental customer moment"} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition duration-500 group-hover:scale-105" />
+              <Image src={customer.imageUrl} alt={customer.customerName ? `${customer.customerName}, a YZ Car Rental customer` : "YZ Car Rental customer moment"} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover transition duration-500 group-hover:scale-105" />
               {(customer.customerName || customer.occasion) ? <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#14213d]/90 via-[#14213d]/35 to-transparent px-5 pb-5 pt-16 text-white">{customer.customerName ? <h3 className="text-lg font-medium">{customer.customerName}</h3> : null}{customer.occasion ? <p className="mt-1 text-sm text-white/75">{customer.occasion}</p> : null}</div> : null}
             </div>
           </article>

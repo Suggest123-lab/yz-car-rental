@@ -83,14 +83,17 @@ export default function Schedule({ bookings }: { bookings: Booking[] }) {
     <h2 className="mt-2 text-3xl font-semibold tracking-tight">Schedule</h2>
     <p className="mt-3 text-sm text-[#5f6775]">View booked rental days at a glance. Select a highlighted day to see its reservations.</p>
 
-    <div className="mt-8 grid gap-4 rounded-2xl border border-[#dbe2ef] bg-white p-4 shadow-sm sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-      <label className="text-sm font-medium text-[#14213d]">Vehicle
-        <select value={car} onChange={(event) => { setCar(event.target.value); setSelectedDay(null); }} className="mt-2 block w-full rounded-xl border border-[#cbd5e1] bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[#fca311] focus:ring-2 focus:ring-[#fca311]/20">
-          <option value="all">All vehicles</option>{cars.map((item) => <option key={item.carId} value={item.carId}>{item.carName}</option>)}
-        </select>
-      </label>
-      <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#dbe2ef] px-3 py-2.5 text-sm font-medium text-[#14213d]"><input type="checkbox" checked={visibility === "all"} onChange={(event) => { setVisibility(event.target.checked ? "all" : "active"); setSelectedDay(null); }} className="h-4 w-4 accent-[#14213d]" />Include cancelled</label>
-    </div>
+    <details className="group mt-8 rounded-2xl border border-[#dbe2ef] bg-white shadow-sm">
+      <summary className="flex cursor-pointer list-none items-center justify-between p-4 text-sm font-semibold text-[#14213d] [&::-webkit-details-marker]:hidden"><span>Filters</span><span className="text-xl leading-none transition-transform group-open:rotate-45">+</span></summary>
+      <div className="grid gap-4 border-t border-[#e8edf4] p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+        <label className="text-sm font-medium text-[#14213d]">Vehicle
+          <select value={car} onChange={(event) => { setCar(event.target.value); setSelectedDay(null); }} className="mt-2 block w-full rounded-xl border border-[#cbd5e1] bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[#fca311] focus:ring-2 focus:ring-[#fca311]/20">
+            <option value="all">All vehicles</option>{cars.map((item) => <option key={item.carId} value={item.carId}>{item.carName}</option>)}
+          </select>
+        </label>
+        <label className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#dbe2ef] px-3 py-2.5 text-sm font-medium text-[#14213d]"><input type="checkbox" checked={visibility === "all"} onChange={(event) => { setVisibility(event.target.checked ? "all" : "active"); setSelectedDay(null); }} className="h-4 w-4 accent-[#14213d]" />Include cancelled</label>
+      </div>
+    </details>
 
     <div className="mt-6 rounded-2xl border border-[#dbe2ef] bg-white p-4 shadow-sm sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
