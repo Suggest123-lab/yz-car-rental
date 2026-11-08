@@ -11,8 +11,6 @@ const navigation = [
 ];
 
 const customization = [
-  { href: "/admin/settings/contact", label: "Contact details" },
-  { href: "/admin/settings/payments", label: "Payment types" },
   { href: "/admin/customer-moments", label: "Customer moments" },
 ];
 

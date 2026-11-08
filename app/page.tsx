@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCars } from "@/lib/cars";
 import type { Car } from "@/lib/car-types";
+import { getCustomerMoments } from "@/lib/customer-moments";
 import CustomerGallery from "./customer-gallery";
 
 function BrandMark() {
@@ -225,7 +226,7 @@ function FloatingActions() {
 export const instant = false;
 
 export default async function Home() {
-  const cars = await getCars();
+  const [cars, customerMoments] = await Promise.all([getCars(), getCustomerMoments()]);
   const listedCars = cars.slice(0, 4);
 
   return (
@@ -403,7 +404,7 @@ export default async function Home() {
               A few of the people who have made YZ Car Rental part of their journey.
             </p>
           </div>
-          <CustomerGallery />
+          <CustomerGallery customerMoments={customerMoments} />
         </div>
       </section>
 

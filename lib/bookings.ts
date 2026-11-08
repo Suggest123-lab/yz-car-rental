@@ -18,6 +18,7 @@ export type Booking = {
   pickupLocation: string;
   notes: string | null;
   createdAt: string;
+  submittedDate: string;
   carName: string;
   carCategory: string;
 };
@@ -39,6 +40,7 @@ export async function getBookings(): Promise<Booking[]> {
       b.pickup_location AS "pickupLocation",
       b.notes,
       to_char(b.created_at AT TIME ZONE 'Asia/Manila', 'Mon DD, YYYY') AS "createdAt",
+      to_char(b.created_at AT TIME ZONE 'Asia/Manila', 'YYYY-MM-DD') AS "submittedDate",
       c.name AS "carName",
       c.category AS "carCategory"
     FROM booking_details b
