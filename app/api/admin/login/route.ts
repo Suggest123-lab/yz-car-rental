@@ -6,10 +6,13 @@ import {
   hasValidAdminCredentials,
   isAdminConfigured,
 } from "@/lib/admin-auth";
+import { getRequestOrigin } from "@/lib/request-origin";
 
 export async function POST(request: Request) {
+  const origin = getRequestOrigin(request);
+
   if (!isAdminConfigured()) {
-    return NextResponse.redirect(new URL("/admin/login", request.url), 303);
+    return NextResponse.redirect(new URL("/admin/login", origin), 303);
   }
 
   const formData = await request.formData();
@@ -17,10 +20,10 @@ export async function POST(request: Request) {
   const password = formData.get("password");
 
   if (typeof username !== "string" || typeof password !== "string" || !hasValidAdminCredentials(username, password)) {
-    return NextResponse.redirect(new URL("/admin/login?error=invalid", request.url), 303);
+    return NextResponse.redirect(new URL("/admin/login?error=invalid", origin), 303);
   }
 
-  const response = NextResponse.redirect(new URL("/admin", request.url), 303);
+  const response = NextResponse.redirect(new URL("/admin", origin), 303);
   response.cookies.set(ADMIN_SESSION_COOKIE, createAdminSession(username), adminSessionCookie);
 
   return response;

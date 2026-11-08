@@ -190,7 +190,7 @@ function FloatingActions() {
             Contact us
           </p>
           <a
-            href="https://m.me/yzcarrentalcdo"
+            href="https://www.facebook.com/profile.php?id=100092013557604"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-3 rounded-xl px-2 py-2.5 text-sm font-medium text-[#14213d] transition hover:bg-[#f8f9fb]"
