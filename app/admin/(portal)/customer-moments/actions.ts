@@ -18,7 +18,8 @@ function optionalText(formData: FormData, key: string, maxLength: number) {
   if (typeof value !== "string") throw new Error(`Invalid ${key}.`);
   const trimmed = value.trim();
   if (trimmed.length > maxLength) throw new Error(`Invalid ${key}.`);
-  return trimmed || null;
+  // Keep anonymous uploads compatible with databases created before this column became nullable.
+  return trimmed;
 }
 
 function refreshCustomerMoments() {

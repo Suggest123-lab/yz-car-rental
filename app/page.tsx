@@ -4,6 +4,7 @@ import { getCars } from "@/lib/cars";
 import type { Car } from "@/lib/car-types";
 import { getCustomerMoments } from "@/lib/customer-moments";
 import CustomerGallery from "./customer-gallery";
+import HeroRecommendations from "./hero-recommendations";
 
 function BrandMark() {
   return (
@@ -110,7 +111,7 @@ function peso(value: string) {
   }).format(Number(value));
 }
 
-function HeroRecommendations({ cars }: { cars: Car[] }) {
+function LegacyHeroRecommendations({ cars }: { cars: Car[] }) {
   if (!cars.length) {
     return (
       <aside className="relative mx-auto w-full max-w-xl lg:ml-auto" aria-label="Recommended cars">
@@ -352,7 +353,11 @@ export default async function Home() {
             A little more freedom, every mile
           </div>
         </div>
-        <HeroRecommendations cars={listedCars} />
+        {listedCars.length ? (
+          <HeroRecommendations cars={listedCars} />
+        ) : (
+          <LegacyHeroRecommendations cars={listedCars} />
+        )}
       </section>
 
       <section id="faq" className="bg-white">
@@ -385,6 +390,84 @@ export default async function Home() {
                 </p>
               </details>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="border-t border-[#dbe2ef] bg-[#f8f9fb]">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-16 sm:px-10 sm:py-20 lg:grid-cols-[1fr_0.9fr] lg:gap-16 lg:px-12">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#fca311]">
+              About YZ Car Rental
+            </p>
+            <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl">
+              A dependable ride for every kind of trip.
+            </h2>
+            <p className="mt-5 max-w-xl text-base leading-7 text-[#5f6775]">
+              YZ Car Rental helps travelers, families, and professionals get around Cagayan de Oro with comfort and flexibility. Whether you are planning a quick errand, a weekend escape, or a longer journey, we make it simple to find a vehicle that suits your plans.
+            </p>
+            <p className="mt-4 max-w-xl text-base leading-7 text-[#5f6775]">
+              We focus on straightforward booking, well-presented vehicles, and friendly support from inquiry to return.
+            </p>
+            <Link
+              href="/booking"
+              className="mt-7 inline-flex rounded-full bg-[#14213d] px-5 py-3 text-sm font-medium text-white shadow-lg shadow-[#14213d]/15 transition hover:-translate-y-0.5 hover:bg-[#263d66]"
+            >
+              Plan your trip
+            </Link>
+          </div>
+          <div className="relative overflow-hidden rounded-[2rem] bg-[#14213d] shadow-xl shadow-[#14213d]/15">
+            <div className="relative aspect-[4/3]">
+              <Image
+                src="/images/asset_landing.jpg"
+                alt="A rental car ready for the road"
+                fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#14213d]/80 via-[#14213d]/10 to-transparent" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white sm:p-8">
+              <p className="text-lg font-medium">Your plans, your pace.</p>
+              <p className="mt-1 text-sm leading-6 text-white/80">Book a ride and make the most of the road ahead.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="location" className="border-t border-[#dbe2ef] bg-white">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-16 sm:px-10 sm:py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-12">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#fca311]">
+              Where to find us
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+              Serving Cagayan de Oro and beyond.
+            </h2>
+            <p className="mt-5 max-w-lg text-base leading-7 text-[#5f6775]">
+              Based in Cagayan de Oro City, Misamis Oriental, we are ready to help you start your journey. Open the map for directions or to explore the area before your trip.
+            </p>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Cagayan%20de%20Oro%20City%2C%20Misamis%20Oriental%2C%20Philippines"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#fca311] px-5 py-3 text-sm font-medium text-[#14213d] shadow-lg shadow-[#fca311]/20 transition hover:-translate-y-0.5 hover:brightness-105"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+                <path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+                <circle cx="12" cy="10" r="2" stroke="currentColor" strokeWidth="1.8" />
+              </svg>
+              Open in Google Maps
+            </a>
+          </div>
+          <div className="overflow-hidden rounded-[2rem] border border-[#dbe2ef] bg-[#eef2f7] shadow-xl shadow-[#14213d]/10">
+            <iframe
+              title="Map of Cagayan de Oro City, Misamis Oriental"
+              src="https://www.google.com/maps?q=Cagayan%20de%20Oro%20City%2C%20Misamis%20Oriental%2C%20Philippines&z=13&output=embed"
+              className="aspect-[4/3] w-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </section>
