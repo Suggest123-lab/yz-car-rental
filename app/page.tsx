@@ -156,7 +156,7 @@ function LegacyHeroRecommendations({ cars }: { cars: Car[] }) {
               </div>
               <div className="absolute bottom-1 left-0 z-10 grid w-40 gap-2 sm:w-44">
                 <div className="rounded-l-xl bg-[#fca311] px-3 py-2.5 text-[#14213d] shadow-lg shadow-[#14213d]/15">
-                  <p className="text-2xl font-medium leading-none">{peso(car.startingRate)}</p>
+                  <p className="text-2xl font-medium leading-none">{peso(car.cityRate)}</p>
                   <p className="mt-1 text-xs text-[#14213d]/70">Starting daily rate</p>
                 </div>
                 <div className="rounded-l-xl bg-white px-3 py-2.5 text-[#14213d] shadow-lg shadow-[#14213d]/15">

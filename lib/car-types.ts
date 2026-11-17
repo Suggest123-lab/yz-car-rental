@@ -5,7 +5,11 @@ export type Car = {
   id: number;
   name: string;
   capacity: number;
+  cityRate: string;
   startingRate: string;
+  outsideCdoRate: string;
+  outsideRegionRate: string;
+  carwashRate: string;
   category: string;
   transmission: string;
   status: CarStatus;

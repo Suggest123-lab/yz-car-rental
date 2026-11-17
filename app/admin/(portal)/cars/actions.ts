@@ -64,17 +64,23 @@ export async function saveCar(formData: FormData) {
   const idValue = formData.get("carId");
   const carId = typeof idValue === "string" && idValue ? Number(idValue) : null;
   const name = textValue(formData, "name", 120);
-  const category = textValue(formData, "category", 80);
+  const categoryName = textValue(formData, "category", 80);
   const transmission = textValue(formData, "transmission", 40);
   const capacity = numericValue(formData, "capacity");
-  const startingRate = numericValue(formData, "startingRate", true);
+  const cityRate = numericValue(formData, "cityRate", true);
+  const outsideCdoRate = numericValue(formData, "outsideCdoRate", true);
+  const outsideRegionRate = numericValue(formData, "outsideRegionRate", true);
+  const carwashRate = numericValue(formData, "carwashRate", true);
   const status = formData.get("status");
   const existingImageUrl = typeof formData.get("existingImageUrl") === "string" ? formData.get("existingImageUrl")!.toString() : "";
   const imageFile = formData.get("imageFile");
   const description = typeof formData.get("description") === "string" ? formData.get("description")!.toString().trim() : "";
 
   if (!Number.isInteger(capacity) || capacity < 1 || capacity > 99) throw new Error("Capacity must be between 1 and 99.");
-  if (!Number.isFinite(startingRate) || startingRate < 0 || startingRate > 1_000_000) throw new Error("Enter a valid daily rate.");
+  if (![cityRate, outsideCdoRate, outsideRegionRate, carwashRate].every((rate) => Number.isFinite(rate) && rate >= 0 && rate <= 1_000_000)) throw new Error("Enter valid rates.");
+  const category = await pool.query<{ id: number }>("SELECT category_id AS id FROM car_categories WHERE lower(name) = lower($1)", [categoryName]);
+  const categoryId = category.rows[0]?.id;
+  if (!categoryId) throw new Error("Select a valid category.");
   if (!carStatuses.includes(status as CarStatus)) throw new Error("Invalid status.");
   if (existingImageUrl.length > 2_000 || description.length > 1_000) throw new Error("Image or description is too long.");
 
@@ -83,20 +89,20 @@ export async function saveCar(formData: FormData) {
     imageUrl = await saveUploadedImage(imageFile);
   }
 
-  const values = [name, capacity, startingRate, category, transmission, status, imageUrl || null, description || null, formData.get("isFeatured") === "on"];
+  const values = [name, capacity, cityRate, outsideCdoRate, outsideRegionRate, carwashRate, categoryId, transmission, status, imageUrl || null, description || null, formData.get("isFeatured") === "on"];
 
   if (carId !== null) {
     if (!Number.isInteger(carId) || carId < 1) throw new Error("Invalid car.");
     await pool.query(
-      `UPDATE cars SET name = $1, capacity = $2, starting_rate = $3, category = $4,
-       transmission = $5, status = $6, image_url = $7, description = $8,
-       is_featured = $9, updated_at = now() WHERE car_id = $10`,
+      `UPDATE cars SET name = $1, capacity = $2, city_rate = $3, outside_cdo_rate = $4,
+       outside_region_rate = $5, carwash_rate = $6, category_id = $7, transmission = $8,
+       status = $9, image_url = $10, description = $11, is_featured = $12, updated_at = now() WHERE car_id = $13`,
       [...values, carId],
     );
   } else {
     await pool.query(
-      `INSERT INTO cars (name, capacity, starting_rate, category, transmission, status, image_url, description, is_featured)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+      `INSERT INTO cars (name, capacity, city_rate, outside_cdo_rate, outside_region_rate, carwash_rate, category_id, transmission, status, image_url, description, is_featured)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
       values,
     );
   }

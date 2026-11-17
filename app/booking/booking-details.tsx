@@ -22,6 +22,9 @@ type BookingPreview = {
   returnDate: string;
   returnTime: string;
   pickupLocation: string;
+  travelScope: string;
+  driverRequested: string;
+  carwashRequested: string;
   notes: string;
   rentalDays: number;
   totalPayment: number;
@@ -46,7 +49,7 @@ export default function BookingDetails({ cars, initialCarId }: BookingDetailsPro
     const end = Date.parse(`${returnDate}T00:00:00Z`);
     return Number.isNaN(start) || Number.isNaN(end) ? null : Math.max(1, Math.ceil((end - start) / 86_400_000));
   })();
-  const totalPayment = selectedCar && rentalDays ? Number(selectedCar.startingRate) * rentalDays : null;
+  const totalPayment = selectedCar && rentalDays ? Number(selectedCar.cityRate) * rentalDays : null;
   const peso = (amount: number) => new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP", maximumFractionDigits: 0 }).format(amount);
   const inputClass = (name: string, resize = false) => `mt-2 w-full rounded-xl border px-4 py-3 text-base outline-none transition focus:ring-2 ${resize ? "resize-y " : ""}${invalidFields.has(name) ? "border-[#b42318] bg-red-50 focus:border-[#b42318] focus:ring-[#b42318]/15" : "border-[#cbd5e1] focus:border-[#14213d] focus:ring-[#14213d]/15"}`;
   const updateFieldValidity = (event: FormEvent<HTMLFormElement>) => {
@@ -75,7 +78,7 @@ export default function BookingDetails({ cars, initialCarId }: BookingDetailsPro
     }
     setClientError(null);
     const days = Math.max(1, Math.ceil((Date.parse(`${returnDate}T00:00:00Z`) - Date.parse(`${pickupDate}T00:00:00Z`)) / 86_400_000));
-    setPreview({ formData, fullName: value("fullName"), phone: value("phone"), email: value("email"), carName: selectedCar?.name ?? "Selected car", pickupDate, pickupTime: value("pickupTime"), returnDate, returnTime: value("returnTime"), pickupLocation: value("pickupLocation"), notes: value("notes"), rentalDays: days, totalPayment: (selectedCar ? Number(selectedCar.startingRate) : 0) * days });
+    setPreview({ formData, fullName: value("fullName"), phone: value("phone"), email: value("email"), carName: selectedCar?.name ?? "Selected car", pickupDate, pickupTime: value("pickupTime"), returnDate, returnTime: value("returnTime"), pickupLocation: value("pickupLocation"), travelScope: value("travelScope"), driverRequested: value("driverRequested"), carwashRequested: value("carwashRequested"), notes: value("notes"), rentalDays: days, totalPayment: (selectedCar ? Number(selectedCar.cityRate) : 0) * days });
   };
   const confirmBooking = () => {
     if (!preview) return;
@@ -107,10 +110,34 @@ export default function BookingDetails({ cars, initialCarId }: BookingDetailsPro
           <label className="mt-6 block text-sm font-medium">Choose a car <span aria-hidden="true" className="text-[#b42318]">*</span>
             <select name="carId" required value={selectedCarId} aria-invalid={invalidFields.has("carId")} onChange={(event) => setSelectedCarId(event.target.value)} className={`${inputClass("carId")} bg-white`}>
               <option value="" disabled>Select an available car</option>
-              {cars.map((car) => <option key={car.id} value={car.id}>{car.name} — ₱{Number(car.startingRate).toLocaleString("en-PH")}/day</option>)}
+              {cars.map((car) => <option key={car.id} value={car.id}>{car.name} — ₱{Number(car.cityRate).toLocaleString("en-PH")} city/day</option>)}
             </select>
           </label>
           {cars.length === 0 ? <p className="mt-2 text-sm text-[#b42318]">No cars are currently marked available. Please contact us for assistance.</p> : null}
+          <div className="mt-5 grid gap-5 sm:grid-cols-3">
+            <label className="text-sm font-medium">Driving area <span aria-hidden="true" className="text-[#b42318]">*</span>
+              <select name="travelScope" required defaultValue="" aria-invalid={invalidFields.has("travelScope")} className={`${inputClass("travelScope")} bg-white`}>
+                <option value="" disabled>Select driving area</option>
+                <option value="city">City driving only</option>
+                <option value="outside-cdo">Outside Cagayan de Oro</option>
+                <option value="outside-region">Outside the region</option>
+              </select>
+            </label>
+            <label className="text-sm font-medium">Need a driver? <span aria-hidden="true" className="text-[#b42318]">*</span>
+              <select name="driverRequested" required defaultValue="" aria-invalid={invalidFields.has("driverRequested")} className={`${inputClass("driverRequested")} bg-white`}>
+                <option value="" disabled>Select an option</option>
+                <option value="yes">Yes, add a driver</option>
+                <option value="no">No driver needed</option>
+              </select>
+            </label>
+            <label className="text-sm font-medium">Add carwash? <span aria-hidden="true" className="text-[#b42318]">*</span>
+              <select name="carwashRequested" required defaultValue="" aria-invalid={invalidFields.has("carwashRequested")} className={`${inputClass("carwashRequested")} bg-white`}>
+                <option value="" disabled>Select an option</option>
+                <option value="yes">Yes, add carwash</option>
+                <option value="no">No carwash needed</option>
+              </select>
+            </label>
+          </div>
           <div className="mt-5 grid gap-5 sm:grid-cols-2">
             <label className="text-sm font-medium">Pick-up date <span aria-hidden="true" className="text-[#b42318]">*</span><input name="pickupDate" type="date" required value={pickupDate} onChange={(event) => setPickupDate(event.target.value)} aria-invalid={invalidFields.has("pickupDate")} className={inputClass("pickupDate")} /></label>
             <label className="text-sm font-medium">Return date <span aria-hidden="true" className="text-[#b42318]">*</span><input name="returnDate" type="date" required value={returnDate} onChange={(event) => setReturnDate(event.target.value)} aria-invalid={invalidFields.has("returnDate")} className={inputClass("returnDate")} /></label>
@@ -118,6 +145,7 @@ export default function BookingDetails({ cars, initialCarId }: BookingDetailsPro
             <label className="text-sm font-medium">Return time <span aria-hidden="true" className="text-[#b42318]">*</span><input name="returnTime" type="time" required aria-invalid={invalidFields.has("returnTime")} className={inputClass("returnTime")} /></label>
           </div>
           <label className="mt-5 block text-sm font-medium">Pick-up location <span aria-hidden="true" className="text-[#b42318]">*</span><input name="pickupLocation" required placeholder="e.g. Cagayan de Oro City" aria-invalid={invalidFields.has("pickupLocation")} className={inputClass("pickupLocation")} /></label>
+
           <label className="mt-5 block text-sm font-medium">Notes <span className="font-normal text-[#5f6775]">(optional)</span><textarea name="notes" rows={4} placeholder="Flight details, special requests, or drop-off location" className={inputClass("notes", true)} /></label>
         </fieldset>
 
@@ -136,12 +164,12 @@ export default function BookingDetails({ cars, initialCarId }: BookingDetailsPro
         </div>
         {selectedCar ? <>
           {selectedCar.imageUrl ? <img src={selectedCar.imageUrl} alt={selectedCar.name} className="h-52 w-full object-cover" /> : <div className="flex h-52 items-center justify-center bg-[#263d66] text-xs font-semibold tracking-[0.16em] text-white/65">YZ CAR RENTAL</div>}
-          <div className="grid grid-cols-2 gap-4 p-6 pt-5 text-sm sm:p-8 sm:pt-5"><div><p className="text-white/60">Starting at</p><p className="mt-1 text-lg font-semibold text-[#fca311]">₱{Number(selectedCar.startingRate).toLocaleString("en-PH")}<span className="text-xs font-normal text-white/65"> / day</span></p></div><div><p className="text-white/60">Car details</p><p className="mt-1 font-medium">{selectedCar.capacity} seats · {selectedCar.transmission}</p></div></div>
+          <div className="grid grid-cols-2 gap-4 p-6 pt-5 text-sm sm:p-8 sm:pt-5"><div><p className="text-white/60">City rate</p><p className="mt-1 text-lg font-semibold text-[#fca311]">₱{Number(selectedCar.cityRate).toLocaleString("en-PH")}<span className="text-xs font-normal text-white/65"> / day</span></p></div><div><p className="text-white/60">Car details</p><p className="mt-1 font-medium">{selectedCar.capacity} seats · {selectedCar.transmission}</p></div></div>
         </> : null}
-        {selectedCar ? <div className="border-t border-white/15 px-6 py-5 sm:px-8"><p className="text-sm font-semibold">Estimated payment</p>{totalPayment !== null && rentalDays ? <><p className="mt-2 text-2xl font-semibold text-[#fca311]">{peso(totalPayment)}</p><p className="mt-1 text-xs leading-5 text-white/65">{rentalDays} {rentalDays === 1 ? "day" : "days"} × {peso(Number(selectedCar.startingRate))} starting daily rate</p></> : <p className="mt-2 text-sm leading-6 text-white/75">Select your pick-up and return dates to see the estimated total.</p>}<p className="mt-2 text-xs leading-5 text-white/55">Final payment may change after the booking is reviewed.</p></div> : null}
+        {selectedCar ? <div className="border-t border-white/15 px-6 py-5 sm:px-8"><p className="text-sm font-semibold">Estimated payment</p>{totalPayment !== null && rentalDays ? <><p className="mt-2 text-2xl font-semibold text-[#fca311]">{peso(totalPayment)}</p><p className="mt-1 text-xs leading-5 text-white/65">{rentalDays} {rentalDays === 1 ? "day" : "days"} × {peso(Number(selectedCar.cityRate))} city daily rate</p></> : <p className="mt-2 text-sm leading-6 text-white/75">Select your pick-up and return dates to see the estimated total.</p>}<p className="mt-2 text-xs leading-5 text-white/55">Final payment may change after the booking is reviewed.</p></div> : null}
         <div className="border-t border-white/15 p-6 sm:p-8"><p className="text-sm font-semibold">Need help first?</p><p className="mt-2 text-sm leading-6 text-white/75">Browse the fleet to compare available vehicles.</p><Link href="/fleet" className="mt-4 inline-flex text-sm font-semibold text-[#fca311] underline underline-offset-4">View our fleet</Link></div>
       </aside>
-      {preview ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#14213d]/60 p-4" role="dialog" aria-modal="true" aria-labelledby="booking-review-title"><section className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl sm:p-8"><p className="text-xs font-bold uppercase tracking-[0.16em] text-[#fca311]">Review booking</p><h2 id="booking-review-title" className="mt-2 text-2xl font-semibold tracking-tight">Confirm your request</h2><p className="mt-2 text-sm leading-6 text-[#5f6775]">Please check the details below before sending your booking request.</p><dl className="mt-6 divide-y divide-[#e8edf4] rounded-2xl border border-[#dbe2ef] px-4"><div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Customer</dt><dd className="text-sm font-semibold">{preview.fullName}<span className="mt-1 block font-normal text-[#5f6775]">{preview.phone} · {preview.email}</span></dd></div><div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Car</dt><dd className="text-sm font-semibold">{preview.carName}</dd></div><div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Rental period</dt><dd className="text-sm">{preview.pickupDate} at {preview.pickupTime}<span className="mx-1 text-[#5f6775]">to</span>{preview.returnDate} at {preview.returnTime}</dd></div><div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Pick-up location</dt><dd className="text-sm">{preview.pickupLocation}</dd></div>{preview.notes ? <div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Notes</dt><dd className="whitespace-pre-wrap text-sm">{preview.notes}</dd></div> : null}</dl>{state.error ? <p role="alert" className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-[#b42318]">{state.error}</p> : null}<div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><button type="button" disabled={pending} onClick={() => setPreview(null)} className="rounded-xl border border-[#cbd5e1] px-4 py-2.5 text-sm font-semibold text-[#14213d] hover:bg-[#eef2f7] disabled:opacity-60">Cancel and edit</button><button type="button" disabled={pending} onClick={confirmBooking} className="rounded-xl bg-[#14213d] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#263d66] disabled:opacity-60">{pending ? "Confirming…" : "Confirm booking"}</button></div></section></div> : null}
+      {preview ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#14213d]/60 p-4" role="dialog" aria-modal="true" aria-labelledby="booking-review-title"><section className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl sm:p-8"><p className="text-xs font-bold uppercase tracking-[0.16em] text-[#fca311]">Review booking</p><h2 id="booking-review-title" className="mt-2 text-2xl font-semibold tracking-tight">Confirm your request</h2><p className="mt-2 text-sm leading-6 text-[#5f6775]">Please check the details below before sending your booking request.</p><dl className="mt-6 divide-y divide-[#e8edf4] rounded-2xl border border-[#dbe2ef] px-4"><div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Customer</dt><dd className="text-sm font-semibold">{preview.fullName}<span className="mt-1 block font-normal text-[#5f6775]">{preview.phone} · {preview.email}</span></dd></div><div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Car</dt><dd className="text-sm font-semibold">{preview.carName}</dd></div><div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Rental period</dt><dd className="text-sm">{preview.pickupDate} at {preview.pickupTime}<span className="mx-1 text-[#5f6775]">to</span>{preview.returnDate} at {preview.returnTime}</dd></div><div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Pick-up location</dt><dd className="text-sm">{preview.pickupLocation}</dd></div><div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Driving area</dt><dd className="text-sm">{preview.travelScope === "city" ? "City driving only" : preview.travelScope === "outside-cdo" ? "Outside Cagayan de Oro" : "Outside the region"}</dd></div><div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Driver</dt><dd className="text-sm">{preview.driverRequested === "yes" ? "Requested" : "Not requested"}</dd></div><div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Carwash</dt><dd className="text-sm">{preview.carwashRequested === "yes" ? "Requested" : "Not requested"}</dd></div>{preview.notes ? <div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]"><dt className="text-sm font-medium text-[#5f6775]">Notes</dt><dd className="whitespace-pre-wrap text-sm">{preview.notes}</dd></div> : null}</dl>{state.error ? <p role="alert" className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-[#b42318]">{state.error}</p> : null}<div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><button type="button" disabled={pending} onClick={() => setPreview(null)} className="rounded-xl border border-[#cbd5e1] px-4 py-2.5 text-sm font-semibold text-[#14213d] hover:bg-[#eef2f7] disabled:opacity-60">Cancel and edit</button><button type="button" disabled={pending} onClick={confirmBooking} className="rounded-xl bg-[#14213d] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#263d66] disabled:opacity-60">{pending ? "Confirming…" : "Confirm booking"}</button></div></section></div> : null}
       {showConfirmation ? <div className="fixed inset-0 z-[60] flex items-center justify-center bg-[#14213d]/60 p-4" role="dialog" aria-modal="true" aria-labelledby="booking-confirmation-title"><section className="w-full max-w-md rounded-3xl bg-white p-7 text-center shadow-2xl"><div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-2xl font-bold text-emerald-700">✓</div><h2 id="booking-confirmation-title" className="mt-5 text-2xl font-semibold tracking-tight">Booking request sent</h2><p className="mt-3 text-sm leading-6 text-[#5f6775]">{state.success} Returning to the home page shortly.</p><button type="button" onClick={() => router.replace("/")} className="mt-6 rounded-xl bg-[#14213d] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#263d66]">Return home now</button></section></div> : null}
     </div>
   );

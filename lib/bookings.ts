@@ -16,6 +16,9 @@ export type Booking = {
   pickupTime: string;
   returnTime: string;
   pickupLocation: string;
+  travelScope: "city" | "outside-cdo" | "outside-region";
+  driverRequested: boolean;
+  carwashRequested: boolean;
   notes: string | null;
   createdAt: string;
   submittedDate: string;
@@ -38,14 +41,18 @@ export async function getBookings(): Promise<Booking[]> {
       to_char(b.pickup_time, 'HH24:MI') AS "pickupTime",
       to_char(b.return_time, 'HH24:MI') AS "returnTime",
       b.pickup_location AS "pickupLocation",
+      b.travel_scope AS "travelScope",
+      b.driver_requested AS "driverRequested",
+      b.carwash_requested AS "carwashRequested",
       b.notes,
       to_char(b.created_at AT TIME ZONE 'Asia/Manila', 'Mon DD, YYYY') AS "createdAt",
       to_char(b.created_at AT TIME ZONE 'Asia/Manila', 'YYYY-MM-DD') AS "submittedDate",
       c.name AS "carName",
-      c.category AS "carCategory"
+      cc.name AS "carCategory"
     FROM booking_details b
     JOIN booking_statuses s ON s.booking_status_id = b.booking_status_id
     JOIN cars c ON c.car_id = b.car_id
+    JOIN car_categories cc ON cc.category_id = c.category_id
     ORDER BY b.created_at DESC, b.booking_id DESC
   `);
 

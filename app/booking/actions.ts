@@ -25,6 +25,12 @@ function timeValue(value: string) {
   return value;
 }
 
+function optionValue(formData: FormData, key: string, options: readonly string[]) {
+  const value = formData.get(key);
+  if (typeof value !== "string" || !options.includes(value)) throw new Error(initialError);
+  return value;
+}
+
 export async function submitBooking(_previousState: BookingFormState, formData: FormData): Promise<BookingFormState> {
   try {
     const rawCarId = formData.get("carId");
@@ -42,6 +48,9 @@ export async function submitBooking(_previousState: BookingFormState, formData: 
     const pickupTime = timeValue(requiredText(formData, "pickupTime", 5));
     const returnTime = timeValue(requiredText(formData, "returnTime", 5));
     const pickupLocation = requiredText(formData, "pickupLocation", 250);
+    const travelScope = optionValue(formData, "travelScope", ["city", "outside-cdo", "outside-region"]);
+    const driverRequested = optionValue(formData, "driverRequested", ["yes", "no"]) === "yes";
+    const carwashRequested = optionValue(formData, "carwashRequested", ["yes", "no"]) === "yes";
     const notes = typeof formData.get("notes") === "string" ? formData.get("notes")!.toString().trim() : "";
     if (notes.length > 2_000) throw new Error("Notes must be 2,000 characters or fewer.");
 
@@ -50,9 +59,9 @@ export async function submitBooking(_previousState: BookingFormState, formData: 
 
     await pool.query(
       `INSERT INTO booking_details
-        (car_id, booking_status_id, customer_name, customer_phone, customer_email, pickup_date, return_date, pickup_time, return_time, pickup_location, notes)
-       VALUES ($1, (SELECT booking_status_id FROM booking_statuses WHERE code = 'pending'), $2, $3, $4, $5::date, $6::date, $7::time, $8::time, $9, $10)`,
-      [carId, customerName, customerPhone, customerEmail, pickupDate, returnDate, pickupTime, returnTime, pickupLocation, notes || null],
+        (car_id, booking_status_id, customer_name, customer_phone, customer_email, pickup_date, return_date, pickup_time, return_time, pickup_location, travel_scope, driver_requested, carwash_requested, notes)
+       VALUES ($1, (SELECT booking_status_id FROM booking_statuses WHERE code = 'pending'), $2, $3, $4, $5::date, $6::date, $7::time, $8::time, $9, $10, $11, $12, $13)`,
+      [carId, customerName, customerPhone, customerEmail, pickupDate, returnDate, pickupTime, returnTime, pickupLocation, travelScope, driverRequested, carwashRequested, notes || null],
     );
 
     revalidatePath("/admin/bookings");

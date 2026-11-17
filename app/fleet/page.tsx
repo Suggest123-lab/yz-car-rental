@@ -67,7 +67,7 @@ export default async function FleetPage() {
                   </div>
                   <p className="mt-4 text-sm text-[#5f6775]">{car.capacity} seats · {car.transmission}</p>
                   {car.description ? <p className="mt-3 text-sm leading-6 text-[#5f6775]">{car.description}</p> : null}
-                  <div className="mt-6 flex items-end justify-between gap-4 border-t border-[#dbe2ef] pt-5"><p className="text-lg font-semibold text-[#14213d]">{peso(car.startingRate)}<span className="text-xs font-normal text-[#5f6775]"> / day</span></p><span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${car.status === "available" ? "bg-emerald-50 text-emerald-800" : "bg-slate-100 text-slate-700"}`}>{car.status === "available" ? "Available" : car.status.charAt(0).toUpperCase() + car.status.slice(1)}</span></div>
+                  <div className="mt-6 flex items-end justify-between gap-4 border-t border-[#dbe2ef] pt-5"><p className="text-lg font-semibold text-[#14213d]">{peso(car.cityRate)}<span className="text-xs font-normal text-[#5f6775]"> city / day</span></p><span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${car.status === "available" ? "bg-emerald-50 text-emerald-800" : "bg-slate-100 text-slate-700"}`}>{car.status === "available" ? "Available" : car.status.charAt(0).toUpperCase() + car.status.slice(1)}</span></div>
                   {car.status === "available" ? <Link href={`/booking?car=${car.id}`} className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-[#14213d] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#263d66]">Book this car</Link> : null}
                 </div>
               </article>
