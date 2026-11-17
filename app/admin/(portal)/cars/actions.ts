@@ -71,13 +71,14 @@ export async function saveCar(formData: FormData) {
   const outsideCdoRate = numericValue(formData, "outsideCdoRate", true);
   const outsideRegionRate = numericValue(formData, "outsideRegionRate", true);
   const carwashRate = numericValue(formData, "carwashRate", true);
+  const excessTimeRate = numericValue(formData, "excessTimeRate", true);
   const status = formData.get("status");
   const existingImageUrl = typeof formData.get("existingImageUrl") === "string" ? formData.get("existingImageUrl")!.toString() : "";
   const imageFile = formData.get("imageFile");
   const description = typeof formData.get("description") === "string" ? formData.get("description")!.toString().trim() : "";
 
   if (!Number.isInteger(capacity) || capacity < 1 || capacity > 99) throw new Error("Capacity must be between 1 and 99.");
-  if (![cityRate, outsideCdoRate, outsideRegionRate, carwashRate].every((rate) => Number.isFinite(rate) && rate >= 0 && rate <= 1_000_000)) throw new Error("Enter valid rates.");
+  if (![cityRate, outsideCdoRate, outsideRegionRate, carwashRate, excessTimeRate].every((rate) => Number.isFinite(rate) && rate >= 0 && rate <= 1_000_000)) throw new Error("Enter valid rates.");
   const category = await pool.query<{ id: number }>("SELECT category_id AS id FROM car_categories WHERE lower(name) = lower($1)", [categoryName]);
   const categoryId = category.rows[0]?.id;
   if (!categoryId) throw new Error("Select a valid category.");
@@ -89,20 +90,20 @@ export async function saveCar(formData: FormData) {
     imageUrl = await saveUploadedImage(imageFile);
   }
 
-  const values = [name, capacity, cityRate, outsideCdoRate, outsideRegionRate, carwashRate, categoryId, transmission, status, imageUrl || null, description || null, formData.get("isFeatured") === "on"];
+  const values = [name, capacity, cityRate, outsideCdoRate, outsideRegionRate, carwashRate, excessTimeRate, categoryId, transmission, status, imageUrl || null, description || null, formData.get("isFeatured") === "on"];
 
   if (carId !== null) {
     if (!Number.isInteger(carId) || carId < 1) throw new Error("Invalid car.");
     await pool.query(
       `UPDATE cars SET name = $1, capacity = $2, city_rate = $3, outside_cdo_rate = $4,
-       outside_region_rate = $5, carwash_rate = $6, category_id = $7, transmission = $8,
-       status = $9, image_url = $10, description = $11, is_featured = $12, updated_at = now() WHERE car_id = $13`,
+       outside_region_rate = $5, carwash_rate = $6, excess_time_rate = $7, category_id = $8, transmission = $9,
+       status = $10, image_url = $11, description = $12, is_featured = $13, updated_at = now() WHERE car_id = $14`,
       [...values, carId],
     );
   } else {
     await pool.query(
-      `INSERT INTO cars (name, capacity, city_rate, outside_cdo_rate, outside_region_rate, carwash_rate, category_id, transmission, status, image_url, description, is_featured)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+      `INSERT INTO cars (name, capacity, city_rate, outside_cdo_rate, outside_region_rate, carwash_rate, excess_time_rate, category_id, transmission, status, image_url, description, is_featured)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
       values,
     );
   }

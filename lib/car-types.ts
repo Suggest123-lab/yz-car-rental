@@ -10,6 +10,7 @@ export type Car = {
   outsideCdoRate: string;
   outsideRegionRate: string;
   carwashRate: string;
+  excessTimeRate: string;
   category: string;
   transmission: string;
   status: CarStatus;

@@ -15,6 +15,7 @@ export async function getCars(): Promise<Car[]> {
       cars.outside_cdo_rate::text AS "outsideCdoRate",
       cars.outside_region_rate::text AS "outsideRegionRate",
       cars.carwash_rate::text AS "carwashRate",
+      cars.excess_time_rate::text AS "excessTimeRate",
       cc.name AS category,
       cars.transmission,
       cars.status,

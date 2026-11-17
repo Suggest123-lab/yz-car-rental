@@ -12,7 +12,10 @@ const navigation = [
   { href: "/admin/cars", label: "Car listing" },
 ];
 
-const customization = [{ href: "/admin/customer-moments", label: "Customer moments" }];
+const customization = [
+  { href: "/admin/driver-rates", label: "Driver rates" },
+  { href: "/admin/customer-moments", label: "Customer moments" },
+];
 
 function NavigationLink({ href, label, exact = false, onNavigate }: { href: string; label: string; exact?: boolean; onNavigate?: () => void }) {
   const pathname = usePathname();

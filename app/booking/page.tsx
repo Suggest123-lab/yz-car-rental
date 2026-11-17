@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCars } from "@/lib/cars";
+import { getDriverServiceRates } from "@/lib/driver-service-rates";
 import BookingDetails from "./booking-details";
 
 // The form reads live fleet availability and an optional selected-car query parameter.
@@ -11,7 +12,7 @@ type BookingPageProps = {
 };
 
 export default async function BookingPage({ searchParams }: BookingPageProps) {
-  const [cars, params] = await Promise.all([getCars(), searchParams]);
+  const [cars, driverRates, params] = await Promise.all([getCars(), getDriverServiceRates(), searchParams]);
   const selectedCar = Array.isArray(params.car) ? params.car[0] : params.car;
   const availableCars = cars.filter((car) => car.status === "available");
 
@@ -52,7 +53,7 @@ export default async function BookingPage({ searchParams }: BookingPageProps) {
         </div>
       </section>
 
-      <BookingDetails cars={availableCars} initialCarId={selectedCar} />
+      <BookingDetails cars={availableCars} driverRates={driverRates} initialCarId={selectedCar} />
     </main>
   );
 }
